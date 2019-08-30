@@ -1,0 +1,168 @@
+import pyautogui
+import os
+import time
+from datetime import datetime
+pyautogui.FAILSAFE = False
+
+__all__ = ['dong']
+Today=datetime.today().strftime("%Y_%m_%d")
+#x; x좌표 y: y 좌표
+x=310
+y=520
+y2=530
+width=1280
+height=490
+
+
+class dong:
+    
+
+
+# 연관검색어 캡쳐 사이즈
+    
+
+    
+    
+    def __init__(self, country_list):
+        self.country_list=country_list
+
+    
+    def related_part(self,country,kw,url):
+
+        
+        pic=[]
+        pic1=pyautogui.screenshot(region=(x,y,width,height))
+        pic.append(pic1)
+        
+        pyautogui.moveTo(1390,980)
+        pyautogui.click()
+        time.sleep(1)
+        pic2=pyautogui.screenshot(region=(x,y,width,height))
+
+        pyautogui.click()
+        time.sleep(1)
+        pic3=pyautogui.screenshot(region=(x,y,width,height))
+
+        pyautogui.click()
+        time.sleep(1)
+        pic4=pyautogui.screenshot(region=(x,y,width,height))
+
+        pyautogui.click()
+        time.sleep(1)
+        pic5=pyautogui.screenshot(region=(x,y,width,height))
+        
+        #중복제거
+        if pic2==pic1:
+            print('%s 1 페이지로 끝'%country)
+        elif pic2 != pic1:
+            pic.append(pic2)
+            if pic3 == pic2:
+                print('%s 2 페이지로 끝'%country)
+            elif pic3 != pic2:
+                pic.append(pic3)
+                if pic4 == pic3:
+                    print('%s 3 페이지로 끝'%country)
+                elif pic4 != pic3:
+                    pic.append(pic4)
+                    if pic5 == pic4:
+                         print('%s 4 페이지로 끝'%country)
+                    elif pic5 != pic4:
+                        pic.append(pic5)
+        for i in range(len(pic)):
+            if kw =='QLED TV Rising' or kw == 'QLED TV TOP':
+                pic[i].save("X:/2019 LGE HE TV 모니터링 업무/15. OLED Campaign/Daily 연관검색어 캡쳐_New/test/%s/%s/%s/%s/related_키워드셋%d_%s_%d.png"%(country,"QLED TV",Today,"Past 7",self.country_list[country].index(url),kw,i))
+            elif kw =="LG OLED TV Rising" or kw =="LG OLED TV TOP":
+                pic[i].save("X:/2019 LGE HE TV 모니터링 업무/15. OLED Campaign/Daily 연관검색어 캡쳐_New/test/%s/%s/%s/%s/related_키워드셋%d_%s_%d.png"%(country,"LG OLED TV",Today,"Past 7",self.country_list[country].index(url),kw,i))
+            else:
+                pic[i].save("X:/2019 LGE HE TV 모니터링 업무/15. OLED Campaign/Daily 연관검색어 캡쳐_New/test/%s/%s/%s/%s/related_키워드셋%d_%s_%d.png"%(country,"SONY OLED TV",Today,"Past 7",self.country_list[country].index(url),kw,i))
+    def capture(self,country,url,func):
+        
+        #크롬창 열기
+        pyautogui.hotkey('ctrl','n')
+        pyautogui.PAUSE=0.4
+        time.sleep(3)
+        
+        #크롬에 URL 타이핑
+        pyautogui.typewrite(url)
+        time.sleep(2)
+        pyautogui.press('enter')
+        time.sleep(6)
+
+        #검색지수 다운
+        pyautogui.moveTo(1465,445)
+        pyautogui.click()
+        time.sleep(5)
+        pyautogui.moveTo(1895,1005)
+        pyautogui.click()
+        time.sleep(2)
+
+        
+        #풀캡쳐 하기
+        pyautogui.moveTo(1810,45)
+        pyautogui.click()
+        time.sleep(4)
+        pyautogui.moveTo(1620,110)
+        pyautogui.click()
+        time.sleep(4)
+        pyautogui.moveTo(1690,390)
+        pyautogui.click()
+        pyautogui.press('esc')
+        time.sleep(3)
+        pyautogui.moveTo(1895,1005)
+        pyautogui.click()
+        time.sleep(2)
+
+        
+        for i in range(0,22):
+            pyautogui.press('down')
+        time.sleep(2)
+        pyautogui.moveTo(0,0)
+        
+        pyautogui.moveTo(1895,1005)
+        pyautogui.click()
+        time.sleep(2)            
+        func(self,country,'QLED TV Rising',url)
+        pyautogui.moveTo(1380,600)
+        pyautogui.click()
+        time.sleep(1)
+        pyautogui.moveTo(1386,660)
+        pyautogui.click()
+        time.sleep(1)
+        pyautogui.moveTo(1386,490)
+        pyautogui.click()
+        func(self,country,'QLED TV TOP',url)
+
+        for i in range(0,13):
+            pyautogui.press('down')
+        
+
+
+        func(self,country,'LG OLED TV Rising',url)
+        pyautogui.moveTo(1380,600)
+        pyautogui.click()
+        time.sleep(1)
+        pyautogui.moveTo(1386,660)
+        pyautogui.click()
+        time.sleep(1)
+        pyautogui.moveTo(1386,490)
+        pyautogui.click()
+        func(self,country,'LG OLED TV TOP',url)
+
+        for i in range(0,13):
+            pyautogui.press('down')
+            
+        func(self,country,'SONY OLED TV Rising',url)
+        pyautogui.moveTo(1380,600)
+        pyautogui.click()
+        time.sleep(1)
+        pyautogui.moveTo(1386,660)
+        pyautogui.click()
+        time.sleep(1)
+        pyautogui.moveTo(1386,490)
+        pyautogui.click()
+        func(self,country,'SONY OLED TV TOP',url)
+
+        pyautogui.hotkey('alt','f4')
+              
+
+
